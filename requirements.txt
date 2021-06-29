@@ -1,3 +1,4 @@
 django==3.2.3
 Pillow==8.2.0
 coverage
+asgiref==3.3.4

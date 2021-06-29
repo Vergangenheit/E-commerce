@@ -5,20 +5,16 @@ from django.http import HttpResponse, HttpRequest
 from typing import Dict
 
 
-def categories(request: HttpRequest) -> Dict:
-    return {'categories': Category.objects.all()}
-
-
 def product_detail(request: HttpRequest, slug: str) -> HttpResponse:
     product: Product = get_object_or_404(Product, slug=slug, in_stock=True)
 
-    return render(request, 'store/products/detail.html', {'product': product})
+    return render(request, 'store/products/single.html', {'product': product})
 
 
 # Create your views here.
-def all_products(request: HttpRequest) -> HttpResponse:
+def product_all(request: HttpRequest) -> HttpResponse:
     # grab the data
-    products: QuerySet = Product.objects.all()
+    products: QuerySet = Product.products.all()
     # make that data available on my template
     return render(request, 'store/home.html', {'products': products})
 
