@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Category, Product
-from django.db.models import QuerySet
-from django.http import HttpResponse, HttpRequest
 from typing import Dict
+
+from django.db.models import QuerySet
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, render
+
+from .models import Category, Product
 
 
 def product_detail(request: HttpRequest, slug: str) -> HttpResponse:

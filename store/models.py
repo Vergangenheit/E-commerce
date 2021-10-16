@@ -1,8 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import CharField, QuerySet
-from django.contrib.auth.models import User
 from django.urls import reverse
-
 
 # Create your models here.
 

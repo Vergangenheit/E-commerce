@@ -2,3 +2,5 @@ django==3.2.3
 Pillow==8.2.0
 coverage
 asgiref==3.3.4
+isort==5.7.0
+pyflakes==2.2.0
