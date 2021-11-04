@@ -13,7 +13,7 @@ from store.views import product_all
 
 @skip("demonstrating skipping")
 class TestSkip(TestCase):
-    def test_skip_exmaple(self):
+    def test_skip_example(self):
         pass
 
 
