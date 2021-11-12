@@ -10,7 +10,7 @@ from decimal import Decimal
 # Create your views here.
 def basket_summary(request: HttpRequest) -> HttpResponse:
     basket = Basket(request)
-    return render(request, 'store/basket/summary.html', {'basket': basket})
+    return render(request, 'basket/summary.html', {'basket': basket})
 
 def basket_add(request: HttpRequest) -> Optional[JsonResponse]:
     # let's grab the session data

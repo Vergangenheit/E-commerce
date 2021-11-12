@@ -8,7 +8,7 @@ import re
 
 
 class Basket():
-    """A basket class, providing some defualt behaviours that can be inherited or overrided, as necessary"""
+    """A basket class, providing some default behaviours that can be inherited or overrided, as necessary"""
 
     def __init__(self, request: HttpRequest):
 
