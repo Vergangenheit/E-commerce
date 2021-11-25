@@ -4,3 +4,5 @@ coverage
 asgiref==3.3.4
 isort==5.7.0
 pyflakes==2.2.0
+django-countries==7.2.1
+six==1.16.0
