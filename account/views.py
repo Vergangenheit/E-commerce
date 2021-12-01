@@ -5,7 +5,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.utils.encoding import force_bytes, force_text
-from .forms import RegistrationForm
+from .forms import RegistrationForm, UserEditForm
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from .admin import UserBase
 from django.contrib.auth.models import AbstractBaseUser
@@ -17,6 +17,27 @@ from .tokens import account_activation_token
 def dashboard(request: HttpRequest) -> HttpResponse:
     return render(request,
     'account/user/dashboard.html')
+
+@login_required
+def edit_details(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+
+        if user_form.is_valid():
+            user_form.save()
+    else:
+        user_form = UserEditForm(instance=request.user)
+    
+    return render(request,
+                'account/user/edit_details.html', {'user_form': user_form})
+
+@login_required
+def delete_user(request: HttpRequest) -> HttpResponseRedirect:
+    user: AbstractBaseUser = UserBase.objects.get(user_name=request.user)
+    user.is_active = False
+    user.save()
+    logout(request)
+    return redirect('account:delete_confirmation')
 
 # collects and saves the data when user press register button
 def account_register(request: HttpRequest) -> HttpResponse:
@@ -54,7 +75,7 @@ def account_register(request: HttpRequest) -> HttpResponse:
 def account_activate(request: HttpRequest, uidb64: str, token: str) -> Union[HttpResponse, HttpResponseRedirect]:
     # decode
     try:
-        uidb = force_text(urlsafe_base64_decode(uidb64))
+        uidb: str = force_text(urlsafe_base64_decode(uidb64))
         user: AbstractBaseUser = UserBase.objects.get(pk=uidb)
         print("user for account activate is of type ", type(user))
     except (TypeError, ValueError, OverflowError, user.DoesNotExist):
