@@ -11,12 +11,15 @@ from .admin import UserBase
 from django.contrib.auth.models import AbstractBaseUser
 from typing import Union
 from .tokens import account_activation_token
+from orders.views import user_orders
+from django.db.models import QuerySet
 # Create your views here.
 
 @login_required
 def dashboard(request: HttpRequest) -> HttpResponse:
+    orders: QuerySet = user_orders(request)
     return render(request,
-    'account/user/dashboard.html')
+    'account/user/dashboard.html', {'orders': orders})
 
 @login_required
 def edit_details(request: HttpRequest) -> HttpResponse:

@@ -87,3 +87,7 @@ class Basket():
     def save(self) -> None:
         """saves session"""
         self.session.modified = True
+
+    def clear(self) -> None:
+        del self.session['skey']
+        self.save()
